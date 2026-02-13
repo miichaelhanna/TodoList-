@@ -6,8 +6,9 @@ Use this repository's source-of-truth files before answering status questions.
 1. `docs/STATUS.md`
 2. `docs/CHANGELOG.md`
 3. `docs/ARCHITECTURE.md`
-4. `docs/DECISIONS.md`
-5. `docs/ai-context.json`
+4. `docs/ARCHITECTURE_HUMAN.md`
+5. `docs/DECISIONS.md`
+6. `docs/ai-context.json`
 
 ## Required behavior
 - For update requests, cite the exact file paths used.

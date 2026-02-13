@@ -14,7 +14,7 @@ struct ContentView: View {
             Theme.backgroundSecondary.ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 20) {
-                Text("Notion-Style Todo")
+                Text("Your Tasks")
                     .font(.system(size: 28, weight: .medium))
                     .foregroundStyle(Theme.textPrimary)
                     .padding(.top, 8)
@@ -33,7 +33,8 @@ struct ContentView: View {
                             TaskRow(
                                 task: task,
                                 onToggle: { toggleComplete(task) },
-                                onCommitEdit: { newText in editTask(task: task, newText: newText) }
+                                onCommitEdit: { newText in editTask(task: task, newText: newText) },
+                                onAssignDueDate: { dueDate in assignDueDate(task: task, dueDate: dueDate) }
                             )
                             .listRowInsets(EdgeInsets(top: 6, leading: 10, bottom: 6, trailing: 10))
                             .listRowBackground(Color.clear)
@@ -124,15 +125,23 @@ struct ContentView: View {
     private func deleteTask(_ task: TaskItem) {
         modelContext.delete(task)
     }
+
+    private func assignDueDate(task: TaskItem, dueDate: Date?) {
+        task.dueDate = dueDate
+        task.updatedAt = Date()
+    }
 }
 
 private struct TaskRow: View {
     let task: TaskItem
     let onToggle: () -> Void
     let onCommitEdit: (String) -> Void
+    let onAssignDueDate: (Date?) -> Void
 
     @State private var isEditing = false
     @State private var editingText = ""
+    @State private var isShowingDueDateEditor = false
+    @State private var selectedDueDate = Date()
     @FocusState private var isEditingFieldFocused: Bool
 
     var body: some View {
@@ -159,25 +168,81 @@ private struct TaskRow: View {
                         }
                     }
             } else {
-                Text(task.text)
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundStyle(Theme.textPrimary)
-                    .strikethrough(task.isCompleted)
-                    .opacity(task.isCompleted ? 0.4 : 1.0)
-                    .animation(.easeInOut(duration: 0.2), value: task.isCompleted)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        editingText = task.text
-                        isEditing = true
-                        isEditingFieldFocused = true
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(task.text)
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundStyle(Theme.textPrimary)
+                        .strikethrough(task.isCompleted)
+                        .opacity(task.isCompleted ? 0.4 : 1.0)
+                        .animation(.easeInOut(duration: 0.2), value: task.isCompleted)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            editingText = task.text
+                            isEditing = true
+                            isEditingFieldFocused = true
+                        }
+
+                    if let dueDate = task.dueDate {
+                        Text("Due \(dueDate.formatted(date: .abbreviated, time: .shortened))")
+                            .font(.system(size: 13, weight: .regular))
+                            .foregroundStyle(Theme.textPrimary.opacity(0.55))
                     }
+                }
             }
+
+            Button {
+                selectedDueDate = task.dueDate ?? Date()
+                isShowingDueDateEditor = true
+            } label: {
+                Image(systemName: task.dueDate == nil ? "calendar.badge.plus" : "calendar")
+                    .font(.system(size: 18, weight: .regular))
+                    .foregroundStyle(Theme.textPrimary.opacity(0.65))
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(task.dueDate == nil ? "Assign due date and time" : "Edit due date and time")
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 10)
         .background(isEditing ? Theme.accentHover : Color.clear)
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .sheet(isPresented: $isShowingDueDateEditor) {
+            NavigationStack {
+                VStack(spacing: 16) {
+                    DatePicker(
+                        "Due Date",
+                        selection: $selectedDueDate,
+                        displayedComponents: [.date, .hourAndMinute]
+                    )
+                    .datePickerStyle(.graphical)
+                    .labelsHidden()
+
+                    Button("Clear Due Date", role: .destructive) {
+                        onAssignDueDate(nil)
+                        isShowingDueDateEditor = false
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding()
+                .navigationTitle("Task Schedule")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Cancel") {
+                            isShowingDueDateEditor = false
+                        }
+                    }
+
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Save") {
+                            onAssignDueDate(selectedDueDate)
+                            isShowingDueDateEditor = false
+                        }
+                    }
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
     }
 
     private func commitEdit() {

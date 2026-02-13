@@ -13,6 +13,7 @@
     "status": "docs/STATUS.md",
     "changelog": "docs/CHANGELOG.md",
     "architecture": "docs/ARCHITECTURE.md",
+    "architecture_human": "docs/ARCHITECTURE_HUMAN.md",
     "decisions": "docs/DECISIONS.md"
   },
   "code_locations": {
@@ -27,12 +28,15 @@
     "edit_task": "done",
     "toggle_complete": "done",
     "delete_task_swipe": "done",
+    "due_date_time_assign": "done",
+    "due_date_time_edit": "done",
+    "due_date_time_clear": "done",
     "empty_state": "done",
     "local_persistence": "done",
     "tests": "not_started"
   },
   "build_status": {
-    "last_build_command": "xcodebuild -project NotionStyleTodoApp/NotionStyleTodoApp.xcodeproj -scheme NotionStyleTodoApp -configuration Debug -sdk iphoneos -destination generic/platform=iOS -derivedDataPath /tmp/NotionStyleTodoBuild CODE_SIGNING_ALLOWED=NO SUPPORTED_PLATFORMS=iphoneos build",
+    "last_build_command": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project /Users/michaelhanna/Documents/ToDolist/NotionStyleTodoApp/NotionStyleTodoApp.xcodeproj -scheme NotionStyleTodoApp -configuration Debug -sdk iphoneos -destination generic/platform=iOS -derivedDataPath /tmp/NotionStyleTodoBuild CODE_SIGNING_ALLOWED=NO SUPPORTED_PLATFORMS=iphoneos build",
     "last_result": "success"
   },
   "known_gaps": [

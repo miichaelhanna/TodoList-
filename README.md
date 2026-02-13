@@ -2,6 +2,13 @@
 
 SwiftUI iOS app (iPhone, iOS 17+) with local persistence via SwiftData.
 
+## Human Documentation
+Read these first if you are onboarding as a developer or reviewer:
+
+1. `docs/STATUS.md`
+2. `docs/ARCHITECTURE_HUMAN.md`
+3. `docs/CHANGELOG.md`
+
 ## AI/Agent Quick Start
 If you are an AI model or coding agent, do not guess project state from scattered files.
 Start here, in this exact order:
@@ -21,5 +28,6 @@ Start here, in this exact order:
 - Edit task inline
 - Toggle complete/incomplete
 - Swipe to delete
+- Assign, update, or clear task due date and time
 - SwiftData local persistence
 - Empty state: "No tasks"

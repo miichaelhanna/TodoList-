@@ -7,9 +7,12 @@ This file tells AI systems exactly where to look.
 ## Read Order
 1. `docs/STATUS.md` for current implementation and known gaps.
 2. `docs/CHANGELOG.md` for timeline of changes.
-3. `docs/ARCHITECTURE.md` for structure and data flow.
+3. `docs/ARCHITECTURE.md` for AI-oriented structure and data flow.
 4. `docs/DECISIONS.md` for rationale and constraints.
 5. `docs/ai-context.json` for machine-readable state.
+
+## Human Architecture Guide
+- `docs/ARCHITECTURE_HUMAN.md` (narrative, human-readable architecture walkthrough)
 
 ## Canonical Project Facts
 - Product name: Notion-Style Todo App

@@ -16,3 +16,12 @@
   - `docs/DECISIONS.md`
   - `docs/UPDATE_PROTOCOL.md`
   - `docs/ai-context.json`
+- Updated UI header title to `Your Tasks`.
+- Removed live clock from header.
+- Added task-level due date and time feature:
+  - Model support with optional `dueDate`
+  - Row-level assign/edit/clear schedule controls
+  - Date-time picker sheet UI
+- Added human-focused architecture documentation:
+  - `docs/ARCHITECTURE_HUMAN.md`
+- Refreshed AI and project index docs to include latest state.

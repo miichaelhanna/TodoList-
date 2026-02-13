@@ -1,0 +1,43 @@
+{
+  "project": {
+    "name": "Notion-Style Todo App",
+    "version": "1.0.0",
+    "platform": "iOS",
+    "device_scope": "iPhone",
+    "minimum_os": "17.0",
+    "ui_framework": "SwiftUI",
+    "persistence": "SwiftData"
+  },
+  "last_updated": "2026-02-13",
+  "source_of_truth": {
+    "status": "docs/STATUS.md",
+    "changelog": "docs/CHANGELOG.md",
+    "architecture": "docs/ARCHITECTURE.md",
+    "decisions": "docs/DECISIONS.md"
+  },
+  "code_locations": {
+    "app_entry": "NotionStyleTodoApp/NotionStyleTodoApp/NotionStyleTodoAppApp.swift",
+    "main_view": "NotionStyleTodoApp/NotionStyleTodoApp/ContentView.swift",
+    "model": "NotionStyleTodoApp/NotionStyleTodoApp/TaskItem.swift",
+    "theme": "NotionStyleTodoApp/NotionStyleTodoApp/Theme.swift",
+    "xcode_project": "NotionStyleTodoApp/NotionStyleTodoApp.xcodeproj/project.pbxproj"
+  },
+  "feature_status": {
+    "create_task": "done",
+    "edit_task": "done",
+    "toggle_complete": "done",
+    "delete_task_swipe": "done",
+    "empty_state": "done",
+    "local_persistence": "done",
+    "tests": "not_started"
+  },
+  "build_status": {
+    "last_build_command": "xcodebuild -project NotionStyleTodoApp/NotionStyleTodoApp.xcodeproj -scheme NotionStyleTodoApp -configuration Debug -sdk iphoneos -destination generic/platform=iOS -derivedDataPath /tmp/NotionStyleTodoBuild CODE_SIGNING_ALLOWED=NO SUPPORTED_PLATFORMS=iphoneos build",
+    "last_result": "success"
+  },
+  "known_gaps": [
+    "No automated tests yet",
+    "Asset catalog not wired in project build phase",
+    "Default bundle identifier/signing placeholders"
+  ]
+}
